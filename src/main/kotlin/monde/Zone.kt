@@ -1,13 +1,14 @@
 package monde
 
 import org.example.monstre.EspeceMonstre
+import java.time.LocalDateTime
 
 // TODO genereMonstre()
 // TODO rencontreMonstre()
 
 /**
  * Représente un lieu (route, caverne, mer, etc.) où le joueur peut se déplacer
- * et rencontrer des monstres sauvages.
+ * et rencontrer des monstres sauvages. Les zones forment une chaîne de routes.
  *
  * @property id Identifiant unique de la zone.
  * @property nom Nom de la zone.

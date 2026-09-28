@@ -1,15 +1,12 @@
-
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 import monde.Zone
+import org.example.item.MonsterKube
 import org.example.dresseur.Entraineur
-
 import org.example.monstre.EspeceMonstre
-
+import org.example.monstre.IndividuMonstre
 
 //Especes
 val especeSpringleaf = EspeceMonstre(
-    id = 1,
+    id = 1,<
     nom = "Springleaf",
     type = "Graine",
     baseAttaque = 60,
@@ -128,8 +125,8 @@ val especeGalum = EspeceMonstre(
     particularites = "",
     caractères = "Sérieux, stoïque, fiable"
 )
-var joueur = Entraineur(1,"Sacha",100)
-var rival = Entraineur(2,"Regis",200)
+
+var joueur = Entraineur(1, "Sacha", 100)
 
 val route1 = Zone(
     id = 1,
@@ -145,15 +142,21 @@ val route2 = Zone(
     especesMonstres = mutableListOf(especeAquamy, especeLaoumi, especeBugsyface)
 )
 
+val kube = MonsterKube(1, "MonsterKube", "Permet de capturer un monstre", 30.0)
+
 fun main() {
     route1.zoneSuivante = route2
     route2.zonePrecedente = route1
 
-    joueur.afficheDetail()
-    rival.afficheDetail()
-    joueur.argents+=50
-    joueur.afficheDetail()
+    // Création des 3 starters demandée par le prof
+    val monstre1 = IndividuMonstre(1, "springleaf", especeSpringleaf, joueur, 1500.0)
+    val monstre2 = IndividuMonstre(2, "flamkip", especeFlamkip, joueur, 1500.0)
+    val monstre3 = IndividuMonstre(3, "aquamy", especeAquamy, joueur, 1500.0)
 
+    monstre1.afficheDetail()
+    monstre2.attaquer(monstre1)
+    println("PV de ${monstre1.nom} après attaque : ${monstre1.pv}/${monstre1.pvMax}")
+    monstre3.afficheDetail()
 }
 
 /**
@@ -165,7 +168,7 @@ fun main() {
  * @param couleur Le nom de la couleur à appliquer (ex: "rouge", "vert", "bleu"). Par défaut c'est une chaîne vide, ce qui n'applique aucune couleur.
  * @return Le message coloré sous forme de chaîne, ou le même message si aucune couleur n'est appliquée.
  */
-fun changeCouleur(message: String, couleur:String=""): String {
+fun changeCouleur(message: String, couleur: String = ""): String {
     val reset = "\u001B[0m"
     val codeCouleur = when (couleur.lowercase()) {
         "rouge" -> "\u001B[31m"
@@ -175,8 +178,8 @@ fun changeCouleur(message: String, couleur:String=""): String {
         "magenta" -> "\u001B[35m"
         "cyan" -> "\u001B[36m"
         "blanc" -> "\u001B[37m"
+        "marron" -> "\u001B[38;5;94m"
         else -> "" // pas de couleur si non reconnu
     }
-    return "$codeCouleur$message$reset"
+    return if (codeCouleur.isEmpty()) message else "$codeCouleur$message$reset"
 }
-

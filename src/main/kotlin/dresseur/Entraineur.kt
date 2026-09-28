@@ -1,5 +1,9 @@
 package org.example.dresseur
 
+import org.example.monstre.IndividuMonstre
+import org.example.item.Item
+import java.time.LocalDate
+
 /**
  * Représente un entraîneur dans le contexte du jeu.
  *
@@ -14,9 +18,9 @@ class Entraineur(
     var id: Int,
     var nom: String,
     var argents: Int,
-    //TODO equipeMonstre
-    //TODO boiteMonstre
-    //TODO sacAKube
+    var equipeMonstre: MutableList<IndividuMonstre> = mutableListOf(),
+    var boiteMonstre: MutableList<IndividuMonstre> = mutableListOf(),
+    var sacAItems: MutableList<Item> = mutableListOf()
 ) {
     /**
      * Affiche les détails de l'entraîneur, y compris son nom et la quantité d'argent en sa possession.

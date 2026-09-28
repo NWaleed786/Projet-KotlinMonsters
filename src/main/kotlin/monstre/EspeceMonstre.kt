@@ -44,6 +44,11 @@ class EspeceMonstre(
     val particularites: String = "",
     val caractères: String = ""
 ) {
+    /**
+     * Affiche l'art ASCII de l'espèce, de face ou de dos.
+     * @param deFace true pour la face, false pour le dos.
+     * @return Le dessin du monstre avec ses couleurs.
+     */
     fun afficheArt(deFace: Boolean=true): String{
         val nomFichier = if(deFace) "front" else "back";
         val art=  File("src/main/resources/art/${this.nom.lowercase()}/$nomFichier.txt").readText()
