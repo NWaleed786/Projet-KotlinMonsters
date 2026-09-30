@@ -13,7 +13,7 @@ class IndividuMonstre(
     val id: Int,
     var nom: String,
     val espece: EspeceMonstre,
-    val entraineur: Entraineur?,
+    var entraineur: Entraineur?,
     expInit: Double
 ) {
     var niveau: Int = 1
@@ -77,6 +77,7 @@ class IndividuMonstre(
         pvMax += Math.round(espece.modPv * potentiel).toInt() + Random.nextInt(-5, 6)
 
         pv += (pvMax - pvMaxAvant)
+        println("$nom passe au niveau $niveau !")
     }
     /**
      * Attaque un autre monstre. Les dégâts valent attaque - défense / 2,

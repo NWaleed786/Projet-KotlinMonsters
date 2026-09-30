@@ -2,11 +2,11 @@ import monde.Zone
 import org.example.item.MonsterKube
 import org.example.dresseur.Entraineur
 import org.example.monstre.EspeceMonstre
-import org.example.monstre.IndividuMonstre
+import org.example.jeu.Partie
 
 //Especes
 val especeSpringleaf = EspeceMonstre(
-    id = 1,<
+    id = 1,
     nom = "Springleaf",
     type = "Graine",
     baseAttaque = 60,
@@ -127,36 +127,40 @@ val especeGalum = EspeceMonstre(
 )
 
 var joueur = Entraineur(1, "Sacha", 100)
+var rival = Entraineur(2, "Rival", 500)
 
 val route1 = Zone(
     id = 1,
     nom = "Route 1",
-    expZone = 5,
-    especesMonstres = mutableListOf(especeSpringleaf, especeFlamkip)
+    expZone = 600,
+    especesMonstres = mutableListOf(especeLaoumi, especeBugsyface)
 )
 
 val route2 = Zone(
     id = 2,
     nom = "Route 2",
-    expZone = 10,
-    especesMonstres = mutableListOf(especeAquamy, especeLaoumi, especeBugsyface)
+    expZone = 800,
+    especesMonstres = mutableListOf(especeSpringleaf, especeGalum)
 )
 
-val kube = MonsterKube(1, "MonsterKube", "Permet de capturer un monstre", 30.0)
+val kube1 = MonsterKube(1, "Kube", "Un petit kube pour capturer un monstre", 50.0)
+
+fun nouvellePartie(): Partie {
+    println("Bienvenue dans KotlinMonsters !")
+    print("Quel est ton nom ? ")
+    val nom = readlnOrNull()
+    if (!nom.isNullOrBlank()) joueur.nom = nom
+    return Partie(1, joueur, route1)
+}
 
 fun main() {
     route1.zoneSuivante = route2
     route2.zonePrecedente = route1
 
-    // Création des 3 starters demandée par le prof
-    val monstre1 = IndividuMonstre(1, "springleaf", especeSpringleaf, joueur, 1500.0)
-    val monstre2 = IndividuMonstre(2, "flamkip", especeFlamkip, joueur, 1500.0)
-    val monstre3 = IndividuMonstre(3, "aquamy", especeAquamy, joueur, 1500.0)
-
-    monstre1.afficheDetail()
-    monstre2.attaquer(monstre1)
-    println("PV de ${monstre1.nom} après attaque : ${monstre1.pv}/${monstre1.pvMax}")
-    monstre3.afficheDetail()
+    joueur.sacAItems.add(kube1)
+    val partie = nouvellePartie()
+    partie.choixStarter()
+    partie.jouer()
 }
 
 /**
